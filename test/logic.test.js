@@ -83,3 +83,20 @@ test('validateExportData accepts good data, rejects junk', () => {
   assert.equal(validateExportData({ plan: { workouts: 'nope' }, sessions: [] }), false);
   assert.equal(validateExportData({ plan: { workouts: [] }, sessions: [{ entries: [] }] }), false); // session missing finishedAt
 });
+
+// --- starter plan ---
+import { defaultPlan } from '../default-plan.js';
+
+test('default plan: 2 workouts, every exercise has a primary and a backup', () => {
+  assert.equal(defaultPlan.workouts.length, 2);
+  assert.equal(validateExportData({ plan: defaultPlan, sessions: [] }), true);
+  for (const w of defaultPlan.workouts) {
+    assert.ok(w.exercises.length >= 6);
+    for (const ex of w.exercises) {
+      assert.ok(ex.id && ex.primary.name && ex.primary.target, `${w.name}: primary complete`);
+      assert.ok(ex.backup.name !== undefined && ex.backup.target !== undefined);
+    }
+  }
+  const ids = defaultPlan.workouts.flatMap(w => w.exercises.map(e => e.id));
+  assert.equal(new Set(ids).size, ids.length, 'exercise ids unique');
+});
