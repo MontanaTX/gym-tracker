@@ -5,9 +5,11 @@ backup exercise when the machine is busy, and review your workout history.
 No accounts, no server — all data stays on the phone (IndexedDB), with JSON
 export/import for backup.
 
+**Live app:** https://montanatx.github.io/gym-tracker/
+
 ## Install on iPhone
 
-1. Open the live URL in **Safari** (see Deployment below).
+1. Open **https://montanatx.github.io/gym-tracker/** in **Safari**.
 2. Tap **Share → Add to Home Screen**.
 3. Launch it from the home screen — it runs full-screen and works offline.
 
